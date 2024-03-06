@@ -1,0 +1,26 @@
+import fetch from 'node-fetch';
+
+class YesNoAPI {
+    static async getAnswer(): Promise<string> {
+        try {
+            const response = await fetch('https://yesno.wtf/api');
+            const data = await response.json();
+            return data.answer;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+    }
+}
+
+async function testYesNoAPI() {
+    try {
+        const answer = await YesNoAPI.getAnswer();
+        console.log('Answer from YesNo.rest API:', answer);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Ejecutar la prueba
+testYesNoAPI();
