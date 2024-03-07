@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yes_no_chat/presentation/screens/chat/widgets/my_message_bubble.dart';
-import 'package:yes_no_chat/presentation/screens/chat/widgets/her_message_bubble.dart';
+import 'package:yes_no_chat/presentation/screens/chat/widgets/her_message.bubble.dart';
+import 'package:yes_no_chat/presentation/screens/chat/widgets/my_message.bubble.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -10,44 +10,55 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const Padding(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(1),
           child: CircleAvatar(
             backgroundImage: NetworkImage(
-              'https://www.unotv.com/uploads/2022/07/dharius-091037.jpg',
+              'https://sm.ign.com/t/ign_latam/gallery/s/star-wars-/star-wars-the-black-series-darth-vader-premium-electronic-he_7vyy.600.jpg',
             ),
           ),
         ),
-        title: const Text("Dharius"),
+        title: const Text("Dart Vader"),
         centerTitle: false,
       ),
-      body: MyWidget(),
+      body: _ChatView(),
     );
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
+class _ChatView extends StatelessWidget {
+  const _ChatView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Expanded(
-              child:ListView.builder(
-                itemCount: 101,
-                itemBuilder: ((context,index){
-                  return(index % == 0)
-                  ? const MyMessageBubble()
-                  : const HerMessageBubble();
-                })
-              ),
-            ),
-            const Text("Hola"),
-            const Text("Hola2"),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromARGB(221, 107, 5, 99),
+            Color.fromARGB(255, 117, 29, 151),
           ],
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 40,
+                  itemBuilder: ((context, index) {
+                    return index % 2 == 0
+                        ? MyMessageBubble()
+                        : HerMessageBubble();
+                  }),
+                ),
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
