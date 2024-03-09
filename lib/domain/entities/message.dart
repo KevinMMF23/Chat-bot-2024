@@ -1,12 +1,9 @@
+enum FromWho { me, hers }
 
-enum Fromwho [me, hers];
-class Message{
+class Message {
   final String text;
-  final String? imageURL;
-  final Fromwho fromWhile;
+  final String? imageURl;
+  final FromWho fromWho;
 
-}
-
-Message({required: this.text, this.imageURL, required: this.Fromwho})
-
+  Message({required this.text, this.imageURl, required this.fromWho});
 }

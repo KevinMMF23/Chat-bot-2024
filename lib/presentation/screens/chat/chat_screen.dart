@@ -1,72 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:yes_no_chat/presentation/screens/chat/widgets/her_message.bubble.dart';
-import 'package:yes_no_chat/presentation/screens/chat/widgets/my_message.bubble.dart';
-import 'package:yes_no_chat/presentation/screens/providers/chat_providers.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_chat/domain/entities/message.dart';
+import 'package:yes_no_chat/presentation/providers/chat_provider.dart';
+import 'package:yes_no_chat/presentation/shared/message_field_box.dart';
+import 'package:yes_no_chat/presentation/widgets/her_message_bubble.dart';
+import 'package:yes_no_chat/presentation/widgets/my_message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ChatProvider chatProvider = context.watch<ChatProvider>();
     return Scaffold(
-      appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(1),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://sm.ign.com/t/ign_latam/gallery/s/star-wars-/star-wars-the-black-series-darth-vader-premium-electronic-he_7vyy.600.jpg',
+        appBar: AppBar(
+          leading: const Padding(
+            padding: EdgeInsets.all(5),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://assets.vogue.com/photos/58dedeaaa6df677eb9f7df72/master/w_2240,c_limit/00-holding-scarlett-johansson-5-things.jpg'),
             ),
           ),
+          title: const Text("My love <3"),
+          centerTitle: false,
         ),
-        title: const Text("Dart Vader"),
-        centerTitle: false,
-      ),
-      body: _ChatView(),
-    );
+        body: const _ChatView());
   }
 }
 
 class _ChatView extends StatelessWidget {
-  const _ChatView({Key? key}) : super(key: key);
+  const _ChatView({super.key});
 
   @override
   Widget build(BuildContext context) {
-   final ChatProvider chatProvider = context.watch<ChatProvider>();
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(221, 107, 5, 99),
-            Color.fromARGB(255, 117, 29, 151),
-          ],
-        ),
-      ),
-      child: SafeArea(
+    final ChatProvider chatProvider = context.watch<ChatProvider>();
+    return SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Expanded(
+              child: ListView.builder(
+                  itemCount: chatProvider.messageList.length,
                   itemBuilder: ((context, index) {
-                    return final ChatProvider chatProvider = context.watch<ChatProvider>();
-
-                    
-                        ? MyMessageBubble()
-                        : HerMessageBubble();
-                  }),
-                ),
-              ),
-              const SizedBox(height: 30),
-            ],
-          ),
-        ),
+                    print(chatProvider.messageList[index].text);
+                    return (chatProvider.messageList[index].fromWho ==
+                            FromWho.hers)
+                        ? const HerMessageBubble()
+                        : MyMessageBubble(
+                            message: chatProvider.messageList[index].text);
+                  }))),
+          const MessageFieldBox()
+        ],
       ),
-    );
+    ));
   }
 }
