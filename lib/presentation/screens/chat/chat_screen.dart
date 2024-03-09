@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:yes_no_chat/presentation/screens/chat/widgets/her_message.bubble.dart';
 import 'package:yes_no_chat/presentation/screens/chat/widgets/my_message.bubble.dart';
+import 'package:yes_no_chat/presentation/screens/providers/chat_providers.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ChatProvider chatProvider = context.watch<ChatProvider>();
     return Scaffold(
       appBar: AppBar(
         leading: const Padding(
@@ -30,6 +32,8 @@ class _ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final ChatProvider chatProvider = context.watch<ChatProvider>();
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -50,7 +54,9 @@ class _ChatView extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: 40,
                   itemBuilder: ((context, index) {
-                    return index % 2 == 0
+                    return final ChatProvider chatProvider = context.watch<ChatProvider>();
+
+                    
                         ? MyMessageBubble()
                         : HerMessageBubble();
                   }),

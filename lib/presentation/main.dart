@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:yes_no_chat/config/theme/app_theme.dart';
 import 'package:yes_no_chat/presentation/screens/chat/chat_screen.dart';
 
@@ -11,10 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>ChatProvider()),
+      ],
+      child: MaterialApp(
       title: 'Yes  No App',
       debugShowCheckedModeBanner: false,
       theme: Apptheme(selectedColor: 4).theme(),
-      home: const ChatScreen());
+      home: const ChatScreen()),
+    );
   }
 }
