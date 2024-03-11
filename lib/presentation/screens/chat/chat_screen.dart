@@ -20,7 +20,7 @@ class ChatScreen extends StatelessWidget {
                   'https://assets.vogue.com/photos/58dedeaaa6df677eb9f7df72/master/w_2240,c_limit/00-holding-scarlett-johansson-5-things.jpg'),
             ),
           ),
-          title: const Text("My love <3"),
+          title: const Text("Aleman"),
           centerTitle: false,
         ),
         body: const _ChatView());

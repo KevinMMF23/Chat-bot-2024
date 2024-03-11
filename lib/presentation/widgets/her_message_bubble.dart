@@ -12,10 +12,11 @@ class HerMessageBubble extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               color: colors.primary, borderRadius: BorderRadius.circular(20)),
+              
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
-              "Id fugiat incididunt aute ipsum nostrud ",
+              "ssssssssssssssss",
               style: TextStyle(color: Colors.white),
             ),
           ),
