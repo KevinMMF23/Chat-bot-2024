@@ -30,11 +30,14 @@ class ChatProvider extends ChangeNotifier {
         return Message(text: 'que once', fromWho: FromWho.hers);
       case 'ya me voy':
         return Message(text: 'arre carnal cuidate, éxito en tu carrera musical', fromWho: FromWho.hers);
+      
+      case "saca pa los tacos":
+        return Message(text: 'no porque eres bien codo carnal, mejor yo te invito q soy rico', fromWho: FromWho.hers);
       case 'como andas?':
         final responses = [
           'Bien carnal, cansado por las giras',
           'algo triste viejo',
-          'Emocionado por los nuevos conciertossss'
+          'Emocionado por los nuevos conciertossss'      
         ];
         final index = random.nextInt(responses.length);
         return Message(text: responses[index], fromWho: FromWho.hers);

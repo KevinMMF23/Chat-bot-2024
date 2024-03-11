@@ -17,7 +17,7 @@ class ChatScreen extends StatelessWidget {
           padding: EdgeInsets.all(5),
           child: CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://assets.vogue.com/photos/58dedeaaa6df677eb9f7df72/master/w_2240,c_limit/00-holding-scarlett-johansson-5-things.jpg'),
+                'https://img.chilango.com/2018/07/aleman-eclipse.jpg'),
           ),
         ),
         title: const Text("Aleman"),
