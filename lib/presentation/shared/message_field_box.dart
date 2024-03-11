@@ -1,53 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_chat/domain/entities/message.dart';
+import 'package:yes_no_chat/presentation/providers/chat_provider.dart';
 
 class MessageFieldBox extends StatelessWidget {
-  const MessageFieldBox({super.key});
+  const MessageFieldBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final textController = TextEditingController();
-    final focusNode = FocusNode();
 
     return TextFormField(
       controller: textController,
-      focusNode: focusNode,
-      onTapOutside: (event) {
-        focusNode.unfocus();
-      },
-      onFieldSubmitted: (value) {
-        print('Valor enviado: $value');
-        textController.clear();
-        focusNode.requestFocus();
-      },
-      decoration: _buildInputDecoration(
-        inputBorder: _outlineInputBorder(),
-        onPressed: () => _onPressed(textController: textController),
+      decoration: InputDecoration(
+        filled: true,
+        hintText: 'Escribe un mensaje...',
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.send),
+          onPressed: () {
+            _sendMessage(context, textController.text);
+            textController.clear();
+          },
+        ),
       ),
     );
   }
 
-  UnderlineInputBorder _outlineInputBorder() => const UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      );
-
-  InputDecoration _buildInputDecoration({
-    required InputBorder inputBorder,
-    required VoidCallback onPressed,
-  }) =>
-      InputDecoration(
-        enabledBorder: inputBorder,
-        focusedBorder: inputBorder,
-        filled: true,
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.send_and_archive_outlined),
-          onPressed: onPressed,
-        ),
-      );
-
-  void _onPressed({required TextEditingController textController}) {
-    final textValue = textController.text;
-    print('Valor de la nueva función: $textValue');
-    textController.clear();
+  void _sendMessage(BuildContext context, String message) {
+    if (message.isNotEmpty) {
+      final chatProvider = Provider.of<ChatProvider>(context, listen: false);
+      chatProvider.addMessage(Message(text: message, fromWho: FromWho.me));
+    }
   }
 }
