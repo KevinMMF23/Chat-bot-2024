@@ -28,18 +28,17 @@ class ChatProvider extends ChangeNotifier {
     switch (text.toLowerCase()) {
       case 'q tranza':
         return Message(text: 'que once', fromWho: FromWho.hers);
-      case 'adios':
-        return Message(text: 'Adiós, ¡que tengas un buen día!', fromWho: FromWho.hers);
-      case '¿cómo estás?':
+      case 'ya me voy':
+        return Message(text: 'arre carnal cuidate, éxito en tu carrera musical', fromWho: FromWho.hers);
+      case 'como andas?':
         final responses = [
-          'Estoy bien, gracias por preguntar.',
-          'Me siento genial hoy.',
-          'Un poco cansada, pero bien en general.'
+          'Bien carnal, cansado por las giras',
+          'algo triste viejo',
+          'Emocionado por los nuevos conciertossss'
         ];
         final index = random.nextInt(responses.length);
         return Message(text: responses[index], fromWho: FromWho.hers);
       default:
-        // Puedes agregar más respuestas aquí o devolver null para no responder
         return null;
     }
   }
