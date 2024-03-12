@@ -1,48 +1,31 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:yes_no_chat/domain/entities/message.dart';
 
 class ChatProvider extends ChangeNotifier {
-  List<Message> _messageList = [
-    Message(text: 'Que tranza carnal, soy el rapero mxAleman', fromWho: FromWho.hers),
+  List<Message> messageList = [
+    Message(text: 'hola mi vida', fromWho: FromWho.me),
+    Message(text: 'Saca para los tacos!!!!', fromWho: FromWho.me),
+    Message(
+        text: 'nel pastel me debes una feria codo',
+        fromWho: FromWho.hers,
+        imageURl:
+            "https://yesno.wtf/assets/no/14-cb78bf7104f848794808d61b9cd83eba.gif"),
+    Message(
+        text: 'pero te pongo las cocas',
+        fromWho: FromWho.hers,
+        imageURl:
+            "https://yesno.wtf/assets/no/14-cb78bf7104f848794808d61b9cd83eba.gif"),
+    Message(text: 'pero tu aflojas para la gasolina?', fromWho: FromWho.me),
+    Message(
+        text: 'no bb!',
+        fromWho: FromWho.hers,
+        imageURl:
+            'https://yesno.wtf/assets/no/13-755222c98795431aa2e7d453ab1e75a1.gif'),
   ];
 
-  List<Message> get messageList => _messageList;
-
-  void addMessage(Message message) {
-    _messageList.add(message);
-    
-    if (message.fromWho == FromWho.me) {
-      final response = generateResponse(message.text);
-      if (response != null) {
-        _messageList.add(response);
-      }
-    }
-
+  Future<void> sendMessage(String text) async {
+    final newMessage = Message(text: text, fromWho: FromWho.me);
+    messageList.add(newMessage);
     notifyListeners();
-  }
-
-  Message? generateResponse(String text) {
-    final random = Random();
-    switch (text.toLowerCase()) {
-      case 'q tranza':
-        return Message(text: 'que once', fromWho: FromWho.hers);
-      case 'ya me voy':
-        return Message(text: 'arre carnal cuidate, éxito en tu carrera musical', fromWho: FromWho.hers);
-      
-      case "saca pa los tacos":
-        return Message(text: 'no porque eres bien codo carnal, mejor yo te invito q soy rico', fromWho: FromWho.hers);
-      case 'como andas?':
-        final responses = [
-          'Bien carnal, cansado por las giras',
-          'algo triste viejo',
-          'Emocionado por los nuevos conciertossss'      
-        ];
-        final index = random.nextInt(responses.length);
-        return Message(text: responses[index], fromWho: FromWho.hers);
-      default:
-        return null;
-    }
   }
 }

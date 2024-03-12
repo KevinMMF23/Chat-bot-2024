@@ -7,47 +7,55 @@ import 'package:yes_no_chat/presentation/widgets/her_message_bubble.dart';
 import 'package:yes_no_chat/presentation/widgets/my_message_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.all(5),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://img.chilango.com/2018/07/aleman-eclipse.jpg'),
+        appBar: AppBar(
+          leading: const Padding(
+            padding: EdgeInsets.all(5),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://assets.vogue.com/photos/58dedeaaa6df677eb9f7df72/master/w_2240,c_limit/00-holding-scarlett-johansson-5-things.jpg'),
+            ),
           ),
+          title: const Text("My love <3"),
+          centerTitle: false,
         ),
-        title: const Text("Aleman"),
-        centerTitle: false,
-      ),
-      body: SafeArea(
+        body: const _ChatView());
+  }
+}
+
+class _ChatView extends StatelessWidget {
+  const _ChatView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ChatProvider chatProvider = context.watch<ChatProvider>();
+    return SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Expanded(
-                child: Consumer<ChatProvider>(
-                  builder: (context, chatProvider, child) {
-                    return ListView.builder(
-                      itemCount: chatProvider.messageList.length,
-                      itemBuilder: (context, index) {
-                        final message = chatProvider.messageList[index];
-                        return (message.fromWho == FromWho.hers)
-                            ? HerMessageBubble(text: message.text) // Pasar el texto del mensaje
-                            : MyMessageBubble(message: message.text);
-                      },
-                    );
-                  },
-                ),
-              ),
-              const MessageFieldBox()
-            ],
-          ),
-        ),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Expanded(
+              child: ListView.builder(
+                  itemCount: chatProvider.messageList.length,
+                  itemBuilder: ((context, index) {
+                    return (chatProvider.messageList[index].fromWho ==
+                            FromWho.hers)
+                        ? HerMessageBubble(
+                            message: chatProvider.messageList[index].text,
+                            imageUrl: chatProvider.messageList[index].imageURl,
+                          )
+                        : MyMessageBubble(
+                            message: chatProvider.messageList[index].text);
+                  }))),
+          MessageFieldBox(
+            onValue: (value) => chatProvider.sendMessage(value),
+          )
+        ],
       ),
-    );
+    ));
   }
 }
