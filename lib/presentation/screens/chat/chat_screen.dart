@@ -32,7 +32,7 @@ class _ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChatProvider chatProvider = context.watch<ChatProvider>();
+    final  chatProvider = context.watch<ChatProvider>();
     return SafeArea(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -40,13 +40,14 @@ class _ChatView extends StatelessWidget {
         children: [
           Expanded(
               child: ListView.builder(
+
                   itemCount: chatProvider.messageList.length,
                   itemBuilder: ((context, index) {
                     return (chatProvider.messageList[index].fromWho ==
                             FromWho.hers)
                         ? HerMessageBubble(
                             message: chatProvider.messageList[index].text,
-                            imageUrl: chatProvider.messageList[index].imageURl,
+                            imageUrl: chatProvider.messageList[index].imageUrl,
                           )
                         : MyMessageBubble(
                             message: chatProvider.messageList[index].text);
