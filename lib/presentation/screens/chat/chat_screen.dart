@@ -32,7 +32,7 @@ class _ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  chatProvider = context.watch<ChatProvider>();
+    final ChatProvider chatProvider = context.watch<ChatProvider>();
     return SafeArea(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -40,7 +40,7 @@ class _ChatView extends StatelessWidget {
         children: [
           Expanded(
               child: ListView.builder(
-
+                  controller: chatProvider.chatController,
                   itemCount: chatProvider.messageList.length,
                   itemBuilder: ((context, index) {
                     return (chatProvider.messageList[index].fromWho ==
